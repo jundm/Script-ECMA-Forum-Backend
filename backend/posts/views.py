@@ -211,7 +211,7 @@ class CommentViewSet(ModelViewSet):
 
 
 class CommentReplyViewSet(ModelViewSet):
-    queryset = CommentReply.objects.all().select_related("author", "post")
+    queryset = CommentReply.objects.all().select_related("author", "comment")
     serializer_class = CommentReplySerializer
     permission_classes = [
         IsAuthenticatedOrReadOnly,
@@ -224,22 +224,22 @@ class CommentReplyViewSet(ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(post__pk=self.kwargs["post_pk"])
+        qs = qs.filter(comment__pk=self.kwargs["comment_pk"])
         return qs
 
     def perform_create(self, serializer):
-        post = get_object_or_404(Comment, pk=self.kwargs["post_pk"])
-        serializer.save(author=self.request.user, post=post)
+        comment = get_object_or_404(Comment, pk=self.kwargs["comment_pk"])
+        serializer.save(author=self.request.user, comment=comment)
         return super().perform_create(serializer)
 
     @action(detail=True, methods=["POST"])
-    def like(self, request, post_pk, pk):
+    def like(self, request, comment_pk, pk):
         post = self.get_object()
         post.like_user_set.add(self.request.user)
         return Response(status.HTTP_201_CREATED)
 
     @like.mapping.delete
-    def unlike(self, request, post_pk, pk):
+    def unlike(self, request, comment_pk, pk):
         post = self.get_object()
         post.like_user_set.remove(self.request.user)
         return Response(status.HTTP_204_NO_CONTENT)

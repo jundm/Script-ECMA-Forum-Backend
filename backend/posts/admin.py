@@ -5,7 +5,7 @@
 #     return post.content[:15]
 from django.contrib import admin
 
-from .models import Post, PostComment, Comment, Tag
+from .models import Post, PostComment, Comment, CommentReply, Tag
 
 
 @admin.register(Post)
@@ -49,6 +49,20 @@ class CommentAdmin(admin.ModelAdmin):
         "updated_at",
     )
     list_filter = ("author", "post", "created_at", "updated_at")
+    date_hierarchy = "created_at"
+
+
+@admin.register(CommentReply)
+class ReplyAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "author",
+        "comment",
+        "content",
+        "created_at",
+        "updated_at",
+    )
+    list_filter = ("author", "comment", "created_at", "updated_at")
     date_hierarchy = "created_at"
 
 

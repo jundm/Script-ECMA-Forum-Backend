@@ -99,7 +99,7 @@ class CommentReply(models.Model):
         verbose_name=_("대댓글작성자"),
     )
 
-    post = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     content = models.TextField(_("내용"), null=False)
     like_user_set = models.ManyToManyField(
         settings.AUTH_USER_MODEL, blank=True, related_name="like_comment_reply_set"
@@ -112,7 +112,7 @@ class CommentReply(models.Model):
         ordering = ["-id"]
 
     def __str__(self):
-        return f"{self.author},{self.post},{self.content}"
+        return f"{self.author},{self.comment},{self.content}"
 
 
 class Tag(models.Model):
