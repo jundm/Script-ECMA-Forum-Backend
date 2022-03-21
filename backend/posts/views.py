@@ -198,13 +198,13 @@ class CommentViewSet(ModelViewSet):
         return super().perform_create(serializer)
 
     @action(detail=True, methods=["POST"])
-    def like(self, request, post_pk):
+    def like(self, request, post_pk, pk):
         post = self.get_object()
         post.like_user_set.add(self.request.user)
         return Response(status.HTTP_201_CREATED)
 
     @like.mapping.delete
-    def unlike(self, request, post_pk):
+    def unlike(self, request, post_pk, pk):
         post = self.get_object()
         post.like_user_set.remove(self.request.user)
         return Response(status.HTTP_204_NO_CONTENT)
