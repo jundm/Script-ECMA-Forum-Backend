@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework import status, generics
 from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
+    AllowAny,
 )
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -34,7 +34,7 @@ class PostViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["id", "category", "like_user_set"]
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        AllowAny,
     ]
     pagination_class = PostPageNumberPagination
 
@@ -112,7 +112,7 @@ class HotPost(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = HotPostSerializer
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        AllowAny,
     ]
     pagination_class = PostPageNumberPagination
 
@@ -144,7 +144,7 @@ class PostCommentViewSet(ModelViewSet):
     )
     serializer_class = PostCommentSerializer
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        AllowAny,
     ]
 
     def get_serializer_context(self):
@@ -179,7 +179,7 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all().select_related("author", "post")
     serializer_class = CommentSerializer
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        AllowAny,
     ]
 
     def get_serializer_context(self):
@@ -214,7 +214,7 @@ class CommentReplyViewSet(ModelViewSet):
     queryset = CommentReply.objects.all().select_related("author", "comment")
     serializer_class = CommentReplySerializer
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        AllowAny,
     ]
 
     def get_serializer_context(self):
