@@ -1,15 +1,17 @@
 from django.contrib.auth import get_user_model
-from drf_yasg.utils import swagger_auto_schema
+
+# from drf_yasg.utils import swagger_auto_schema
 from requests import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404, CreateAPIView
-from rest_framework_simplejwt.views import (
-    TokenBlacklistView,
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
+
+# from rest_framework_simplejwt.views import (
+#     TokenBlacklistView,
+#     TokenObtainPairView,
+#     TokenRefreshView,
+#     TokenVerifyView,
+# )
 from accounts.serializers import UsernameUniqueCheckSerializer
 
 # format=None https://www.django-rest-framework.org/tutorial/2-requests-and-responses/#adding-optional-format-suffixes-to-our-urls
@@ -51,78 +53,79 @@ def user_unfollow(request):
     return Response(status.HTTP_204.NO_CONTENT)
 
 
-class TokenObtainPairResponseSerializer(serializers.Serializer):
-    access = serializers.CharField()
-    refresh = serializers.CharField()
-
-    def create(self, validated_data):
-        raise NotImplementedError()
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError()
-
-
-class DecoratedTokenObtainPairView(TokenObtainPairView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenObtainPairResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-
-class TokenRefreshResponseSerializer(serializers.Serializer):
-    access = serializers.CharField()
-
-    def create(self, validated_data):
-        raise NotImplementedError()
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError()
-
-
-class DecoratedTokenRefreshView(TokenRefreshView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenRefreshResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-
-class TokenVerifyResponseSerializer(serializers.Serializer):
-    def create(self, validated_data):
-        raise NotImplementedError()
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError()
-
-
-class DecoratedTokenVerifyView(TokenVerifyView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenVerifyResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-
-class TokenBlacklistResponseSerializer(serializers.Serializer):
-    def create(self, validated_data):
-        raise NotImplementedError()
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError()
-
-
-class DecoratedTokenBlacklistView(TokenBlacklistView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenBlacklistResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+#
+# class TokenObtainPairResponseSerializer(serializers.Serializer):
+#     access = serializers.CharField()
+#     refresh = serializers.CharField()
+#
+#     def create(self, validated_data):
+#         raise NotImplementedError()
+#
+#     def update(self, instance, validated_data):
+#         raise NotImplementedError()
+#
+#
+# class DecoratedTokenObtainPairView(TokenObtainPairView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenObtainPairResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
+#
+#
+# class TokenRefreshResponseSerializer(serializers.Serializer):
+#     access = serializers.CharField()
+#
+#     def create(self, validated_data):
+#         raise NotImplementedError()
+#
+#     def update(self, instance, validated_data):
+#         raise NotImplementedError()
+#
+#
+# class DecoratedTokenRefreshView(TokenRefreshView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenRefreshResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
+#
+#
+# class TokenVerifyResponseSerializer(serializers.Serializer):
+#     def create(self, validated_data):
+#         raise NotImplementedError()
+#
+#     def update(self, instance, validated_data):
+#         raise NotImplementedError()
+#
+#
+# class DecoratedTokenVerifyView(TokenVerifyView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenVerifyResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
+#
+#
+# class TokenBlacklistResponseSerializer(serializers.Serializer):
+#     def create(self, validated_data):
+#         raise NotImplementedError()
+#
+#     def update(self, instance, validated_data):
+#         raise NotImplementedError()
+#
+#
+# class DecoratedTokenBlacklistView(TokenBlacklistView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenBlacklistResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)

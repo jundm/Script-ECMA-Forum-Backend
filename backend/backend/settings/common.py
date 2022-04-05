@@ -70,7 +70,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "rest_framework",
     "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",
+    # "rest_framework_simplejwt.token_blacklist",
 ]
 # account: 커스텀 유저 & 회원가입
 PROJECT_APPS = [
