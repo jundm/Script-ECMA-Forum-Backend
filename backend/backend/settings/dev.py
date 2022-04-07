@@ -3,7 +3,7 @@ from .common import *
 # django-debug-toolbar https://django-debug-toolbar.readthedocs.io/en/latest/
 # django-extensions https://django-extensions.readthedocs.io/en/latest/installation_instructions.html
 # drf-yasg https://drf-yasg.readthedocs.io/en/stable/readme.html#usage
-
+DEBUG = True
 INSTALLED_APPS += [
     "debug_toolbar",
     "django_extensions",

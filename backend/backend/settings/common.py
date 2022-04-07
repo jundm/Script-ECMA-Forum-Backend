@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 import json
 from django.core.exceptions import ImproperlyConfigured
@@ -39,9 +39,8 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -71,6 +70,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     # "rest_framework_simplejwt.token_blacklist",
+    "storages",
 ]
 # account: 커스텀 유저 & 회원가입
 PROJECT_APPS = [
@@ -283,6 +283,4 @@ DJOSER = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = [
-    # "my_url",
-]
+CORS_ALLOWED_ORIGINS = ["*"]

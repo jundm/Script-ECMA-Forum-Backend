@@ -14,6 +14,7 @@ class UserCreateSerializer(UserCreateSerializer):
             "name",
             "username",
             "email",
+            # "avatar",
             "follower_set",
             "following_set",
         )
