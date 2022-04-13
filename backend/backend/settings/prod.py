@@ -33,18 +33,20 @@ LOGGING = {
 
 # s3 https://kdharchive.tistory.com/830
 
+# https://stackoverflow.com/questions/67568575/how-to-connect-s3-amazon-to-your-django-project
 # https://integer-ji.tistory.com/13
 # AWS
-AWS_S3_ACCESS_KEY_ID = get_secret(
+AWS_S3_ACCESS_KEY_ID = os.environ[
     "AWS_S3_ACCESS_KEY_ID"
-)  # .csv 파일에 있는 내용을 입력 Access key ID
-AWS_S3_SECRET_ACCESS_KEY = get_secret(
+]  # .csv 파일에 있는 내용을 입력 Access key ID
+AWS_S3_SECRET_ACCESS_KEY = os.environ[
     "AWS_S3_SECRET_ACCESS_KEY"
-)  # .csv 파일에 있는 내용을 입력 Secret access key
+]  # .csv 파일에 있는 내용을 입력 Secret access key
+
 AWS_REGION = "ap-northeast-2"
 
 ###S3 Storages
-AWS_STORAGE_BUCKET_NAME = get_secret("AWS_STORAGE_BUCKET_NAME")  # 설정한 버킷 이름
+AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]  # 설정한 버킷 이름
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.%s.amazonaws.com" % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
@@ -55,3 +57,17 @@ AWS_LOCATION = "static"
 STATTIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
 DEFAULT_FILE_STORAGE = "backend.storages.MediaStorage"
+
+# DATABASE
+# Dockerfile error https://stackoverflow.com/questions/59554493/unable-to-fire-a-docker-build-for-django-and-mysql
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": os.environ["DATABASE_HOST"],
+        "PORT": "3306",
+        "NAME": os.environ.get("DATABASE_NAME", "dbmasteruser"),
+        # <-----이부분 중요 !! db인스턴스명이 아니라 유저이름과 동일하게 SET!
+        "USER": os.environ["DATABASE_USER"],
+        "PASSWORD": os.environ["DATABASE_PASSWORD"],
+    }
+}

@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 # Install python3
 RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
+  && apt-get install -y python3-pip python3-dev default-libmysqlclient-dev \
   && pip3 install --upgrade pip
 
 COPY . /app
