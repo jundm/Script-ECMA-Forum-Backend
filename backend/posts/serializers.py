@@ -152,13 +152,13 @@ class CommentReplySerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField()
     isLikes = serializers.SerializerMethodField()
 
-    def get_likes(self, post):
-        return post.like_user_set.count()
+    def get_likes(self, comment):
+        return comment.like_user_set.count()
 
-    def get_isLikes(self, post):
+    def get_isLikes(self, comment):
         if "request" in self.context:
             user = self.context["request"].user
-            return post.like_user_set.filter(pk=user.pk).exists()
+            return comment.like_user_set.filter(pk=user.pk).exists()
         else:
             return False
 

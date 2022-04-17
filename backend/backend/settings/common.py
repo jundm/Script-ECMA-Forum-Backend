@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 import json
 from django.core.exceptions import ImproperlyConfigured
@@ -39,9 +39,8 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = [""]
 
 
 # Application definition
@@ -70,7 +69,8 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "rest_framework",
     "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",
+    # "rest_framework_simplejwt.token_blacklist",
+    "storages",
 ]
 # account: 커스텀 유저 & 회원가입
 PROJECT_APPS = [
@@ -118,12 +118,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 
 # 프로젝트를 시작할때 사용자 정의 모델 사용(마이그레이션을 늦게 하는 이유)
 # https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
@@ -210,7 +211,7 @@ REST_FRAMEWORK = {
 # JWT
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=35),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ALGORITHM": "HS256",
     "SIGNING_KEY": SECRET_KEY,
@@ -283,6 +284,4 @@ DJOSER = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = [
-    # "my_url",
-]
+CORS_ALLOWED_ORIGINS = ["http://13.124.233.205", "http://localhost"]
